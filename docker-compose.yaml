@@ -21,8 +21,8 @@ services:
     
 
   phpmyadmin:
-    platform: linux/arm64
-    image: phpmyadmin:fpm-alpine
+    platform: linux/amd64
+    image: phpmyadmin/phpmyadmin
     restart: always
     ports:
       - '8080:80'
