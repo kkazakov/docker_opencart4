@@ -1,7 +1,7 @@
 FROM php:8.2.11-apache
 
 ARG DOWNLOAD_URL
-ARG FOLDER
+ARG FOLDER upload
 
 ENV DIR_OPENCART='/var/www/html/'
 ENV DIR_STORAGE=${DIR_OPENCART}'system/storage/'
@@ -38,9 +38,10 @@ RUN if [ -z "$DOWNLOAD_URL" ]; then \
 
 RUN unzip /tmp/opencart.zip -d  /tmp/opencart;
 
-RUN mv /tmp/opencart/$(if [ -n "$FOLDER" ]; then echo $FOLDER; else  unzip -l /tmp/opencart.zip | awk '{print $4}' | grep -E 'opencart-[a-z0-9.]+/upload/$'; fi)* ${DIR_OPENCART};
+RUN mv /tmp/opencart/upload/* ${DIR_OPENCART};
 
 RUN rm -rf /tmp/opencart.zip && rm -rf /tmp/opencart;
+
 
 RUN cp ${DIR_OPENCART}config-dist.php ${DIR_OPENCART}config.php \
     && cp ${DIR_OPENCART}admin/config-dist.php ${DIR_OPENCART}admin/config.php
