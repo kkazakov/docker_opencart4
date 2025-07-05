@@ -48,6 +48,7 @@ RUN cp ${DIR_OPENCART}config-dist.php ${DIR_OPENCART}config.php \
 
 RUN a2enmod rewrite
 RUN chown -R www-data:www-data ${DIR_OPENCART}
+RUN chown www-data:www-data /var/www
 RUN chmod -R 755 ${DIR_OPENCART}
 
 CMD ["apache2-foreground"]
